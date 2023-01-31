@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
+const port = 3001;
 
 mongoose.connect('mongodb://localhost:27017/mydatabase', {
   useNewUrlParser: true,
@@ -15,7 +15,7 @@ db.once('open', function() {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello from the Express server!');
+  res.send('This goes nowhere for now but dont worry Express is running!');
 });
 
 app.listen(port, () => {
