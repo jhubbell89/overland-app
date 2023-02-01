@@ -1,20 +1,25 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import ReactDOM from'react-dom';
-import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 
+// import AuthPage from '../authpage/AuthPage';
 import NavBar from '../../components/navbar/NavBar';
+import { getUser } from '../../utilities/users-service';
 
 import './App.css';
 
 export default function App() {
-  // const [user, setUser] = useState(getUser());
-  
+  const [user, setUser] = useState(getUser());
+
   return (
     <main className='App'>
-      {/* <NavBar user={user} setUser={setUser} /> */}
-      <NavBar />
-      
+      {/* {user ?
+        <>
+          <NavBar user={user} setUser={setUser} />
+        </>
+        :
+        <AuthPage setUser={setUser} />
+      } */}
+<NavBar user={user} setUser={setUser} />
     </main>
   );
 }
