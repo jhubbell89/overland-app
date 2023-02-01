@@ -1,29 +1,42 @@
-import {Link} from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import './NavBar.css';
 
-export default function NavBar(props) {
-    
-    //Function to help make the navbar responsive.
-    //Not finished.
-    // function myFunction() {
-    //     var x = document.getElementById("myTopnav");
-    //     if (x.className === "topnav") {
-    //         x.className += " responsive";
-    //       } else {
-    //         x.className = "topnav";
-    //       }
-    // }
+export default function TopNav() {
+  const [isExpanded, setExpanded] = useState(false);
+  const user = true; // Example user data
+  
+  const handleClick = () => {
+    setExpanded(!isExpanded);
+  };
 
-    return (
-        <div>
-            <div className="topnav" id="myTopnav">
-                <nav>
-                    <Link to='/'>Home</Link>
-                    <Link to='/trips/new'>Start An Adventure</Link>
-                    <Link to='/trips/index'>Adventures</Link>
-                </nav>
-            </div>
-        </div>
-    )
+  return (
+    <>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+      <div className={`topnav ${isExpanded ? "responsive" : ""}`}>
+        {user ? (
+          <>
+            <Link to="/" className="active">
+              Home
+            </Link>
+            <Link to="/trips/new">Start An Adventure</Link>
+            <Link to="/trips">Adventures</Link>
+            <Link to="/destinations">Destinations</Link>
+            <Link to="/logout" className="split">
+              Log Out
+            </Link>
+            <a href="#" className="icon" onClick={handleClick}>
+              <i className="fa fa-bars"></i>
+            </a>
+          </>
+        ) : (
+          <Link to="/auth/google">Log In</Link>
+        )}
+      </div>
+    </>
+  );
 }
