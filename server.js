@@ -1,23 +1,28 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongodb = require('mongodb');
+
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/mydatabase', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+// Connect to MongoDB
+const uri = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/test?retryWrites=true&w=majority";
+mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
+  if (err) {
+    console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+  }
+  console.log('Connected...');
+  const db = client.db("test");
 });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connected to MongoDB!');
-});
+// Middleware
+app.use(express.json());
 
+// Routes
 app.get('/', (req, res) => {
-  res.send('This goes nowhere for now but dont worry Express is running!');
+  res.send('Hello from the server side!');
 });
 
+// Start server
 app.listen(port, () => {
-  console.log(`Express server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
