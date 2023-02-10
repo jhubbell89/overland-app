@@ -1,42 +1,50 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 
+export default function NavBar() {
+  const [isExpanded, setExpanded] = useState(false);
+  const user = [];
 
+  const handleClick = () => {
+    setExpanded(!isExpanded);
+  };
 
-export default function TopNav() {
-    const [isExpanded, setExpanded] = useState(false);
-    const user = [];
-
-    const handleClick = () => {
-        setExpanded(!isExpanded);
-    };
-
-    return (
-        <>
-            <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-            />
-            <div className={`topnav ${isExpanded ? "responsive" : ""}`}>
-                {user ? (
-                    <>
-                        <Link to="/" className="active bg-emerald-600">
-                            Home
-                        </Link>
-                        <Link to="/trips/new">Start An Adventure</Link>
-                        <Link to="/trips">Adventures</Link>
-                        <Link to="/destinations">Destinations</Link>
-                        <Link to="/logout" className="split bg-red-600">
-                            Log Out
-                        </Link>
-                        <Link to="" className="icon" onClick={handleClick}>
-                            <i className="fa fa-bars"></i>
-                        </Link>
-                    </>
-                ) : (
-                    <Link to="/auth/google">Log In</Link>
-                )}
-            </div>
-        </>
-    );
+  return (
+    <div class="bg-stone-600">
+      <div className={`topnav ${isExpanded ? "responsive" : ""}`}>
+        {user ? (
+          <>
+            <Link to="/">Home</Link>
+            <Link to="/destinations" className="">
+              Destinations
+            </Link>
+            <Link to="/trips" className="">
+              My Adventures
+            </Link>
+            <Link to="/social" className="">
+              social
+            </Link>
+            <Link to="/shop" className="">
+              Shop
+            </Link>
+            <Link to="/help" className="">
+              Help
+            </Link>
+            <Link to="/logout" className="m-1">
+              Log Out
+            </Link>
+            <Link to="" className="icon " onClick={handleClick}>
+              <FaBars />
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/">Home</Link>
+            <Link to="/auth/google">Log In</Link>
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
