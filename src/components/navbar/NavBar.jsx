@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import './NavBar.css';
+
 
 export default function TopNav() {
     const [isExpanded, setExpanded] = useState(false);
@@ -20,13 +20,13 @@ export default function TopNav() {
             <div className={`topnav ${isExpanded ? "responsive" : ""}`}>
                 {user ? (
                     <>
-                        <Link to="/" className="active">
+                        <Link to="/" className="active bg-emerald-600">
                             Home
                         </Link>
                         <Link to="/trips/new">Start An Adventure</Link>
                         <Link to="/trips">Adventures</Link>
                         <Link to="/destinations">Destinations</Link>
-                        <Link to="/logout" className="split">
+                        <Link to="/logout" className="split bg-red-600">
                             Log Out
                         </Link>
                         <Link to="" className="icon" onClick={handleClick}>
