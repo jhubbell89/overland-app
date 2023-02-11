@@ -1,28 +1,34 @@
-const express = require('express');
-const mongodb = require('mongodb');
+const express = require("express");
+const path = require("path");
+const favicon = require("serve-favicon");
+const logger = require("morgan");
+// var cors = require('cors')
+// app.use(cors())
+
+require("dotenv").config();
+// Connect to db after the dotenv above
+require("./config/database");
 
 const app = express();
-const port = process.env.PORT || 5000;
 
-// Connect to MongoDB
-const uri = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/test?retryWrites=true&w=majority";
-mongodb.MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
-  if (err) {
-    console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-  }
-  console.log('Connected...');
-  const db = client.db("test");
-});
-
-// Middleware
+app.use(logger("dev"));
+// Process data in body of request if
+// Content-Type: 'application/json'
+// and put that data on req.body
 app.use(express.json());
+app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
+app.use(express.static(path.join(__dirname, "build")));
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello from the server side!');
+// middleware that adds the user object from a JWT to req.user
+app.use(require("./config/checkToken"));
+
+// Put all API routes here (before the catch-all)
+app.use("/api/users", require("./routes/api/user"));
+
+// "catch-all" route that will match all GET requests
+// that don't match an API route defined above
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
