@@ -24,6 +24,11 @@ app.use(require("./config/checkToken"));
 
 // Put all API routes here (before the catch-all)
 app.use("/api/users", require("./routes/api/user"));
+app.get('/api/mapbox-token', (req, res) => {
+  res.send({
+    accessToken: 'YOUR_MAPBOX_API_KEY'
+  });
+});
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above
