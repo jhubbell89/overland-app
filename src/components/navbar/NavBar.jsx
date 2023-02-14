@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import * as userService from "../../utilities/users-service";
 
 export default function NavBar({ user, setUser }) {
-  const [isExpanded, setExpanded] = useState(false);
-
-  const handleClick = () => {
-    setExpanded(!isExpanded);
-  };
+  
+  function handleClick() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+  }
 
   function handleLogOut() {
     // Remove token using the user service
